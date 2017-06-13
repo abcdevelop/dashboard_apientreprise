@@ -1,10 +1,18 @@
 <template>
   <div class="endpoint">
-    <ul>
-      <li>name : {{ name }}</li>
-      <li>status : {{ status }}</li>
-      <li>dependencies : {{ dependencies }}</li>
-    </ul>
+    <div class="ui card">
+      <div class="content">
+        <div class="header">{{ name }}</div>
+      </div>
+      <div class="content">
+        {{ status }}
+      </div>
+      <div class="content">
+        <div v-for="dependency in dependencies" class="ui green label">
+          {{ dependency }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,3 +26,9 @@ export default {
 }
 </script>
 
+<style scoped>
+.endpoint {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+</style>

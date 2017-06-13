@@ -1,10 +1,17 @@
 <template>
-  <div id="control-panel">
-    <h2>Fournisseurs de données</h2>
-    <data-provider v-for="provider in dataProviders" :name="provider.name" :status="provider.status"></data-provider>
-
-    <h2>Endpoints</h2>
-    <endpoint v-for="endpoint in endpoints" :name="endpoint.name" :status="endpoint.status" :dependencies="endpoint.dependencies"></endpoint>
+  <div id="control-panel" class="ui centered grid">
+    <div class="eight wide column">
+      <div class="ui segment">
+        <h2 class="ui header">Endpoints</h2>
+        <endpoint v-for="endpoint in endpoints" :name="endpoint.name" :status="endpoint.status" :dependencies="endpoint.dependencies"></endpoint>
+      </div>
+    </div>
+    <div class="four wide column">
+      <div class="ui segment">
+        <h2 class="ui header" style="text-align:center;">Fournisseurs de données</h2>
+        <data-provider v-for="provider in dataProviders" :name="provider.name" :status="provider.status"></data-provider>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,7 +50,7 @@ export default {
         {
           name: 'Exercices',
           status: 'UP',
-          dependences: ['INSEE', 'Infogreffe']
+          dependencies: ['INSEE', 'Infogreffe']
         },
         {
           name: 'Attestations Fiscales',
