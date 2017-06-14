@@ -7,16 +7,13 @@
       </div>
     </div>
     <div class="four wide column">
-      <div class="ui segment">
-        <h2 class="ui header" style="text-align:center;">Fournisseurs de données</h2>
-        <data-provider v-for="provider in dataProviders" :name="provider.name" :status="provider.status"></data-provider>
-      </div>
+      <data-providers-list :data-providers="dataProviders"></data-providers-list>
     </div>
   </div>
 </template>
 
 <script>
-import DataProvider from '@/components/DataProvider'
+import DataProvidersList from '@/components/DataProvidersList'
 import Endpoint from '@/components/Endpoint'
 
 export default {
@@ -65,7 +62,7 @@ export default {
     }
   },
   components: {
-    'data-provider': DataProvider,
+    'data-providers-list': DataProvidersList,
     'endpoint': Endpoint
   }
 }
