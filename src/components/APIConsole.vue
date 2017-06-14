@@ -1,5 +1,5 @@
 <template>
-  <div id="control-panel" class="ui centered grid">
+  <div id="api-console" class="ui centered grid">
     <div class="eight wide column">
       <div class="ui segment">
         <h2 class="ui header">Endpoints</h2>
@@ -20,42 +20,46 @@ import DataProvider from '@/components/DataProvider'
 import Endpoint from '@/components/Endpoint'
 
 export default {
-  name: 'control-panel',
+  name: 'api-console',
   data () {
     return {
       dataProviders: [
         {
+          id: 1,
           name: 'INSEE',
           status: 'UP'
         },
         {
+          id: 2,
           name: 'DGFIP',
           status: 'UP'
         },
         {
+          id: 3,
           name: 'Infogreffe',
           status: 'DOWN'
         },
         {
+          id: 4,
           name: 'URSSAF',
           status: 'UP'
         }
       ],
       endpoints: [
         {
+          id: 1,
           name: 'Etablissements',
-          status: 'UP',
-          dependencies: ['INSEE']
+          dependencies: [1]
         },
         {
+          id: 2,
           name: 'Exercices',
-          status: 'UP',
-          dependencies: ['INSEE', 'Infogreffe']
+          dependencies: [1, 3]
         },
         {
+          id: 3,
           name: 'Attestations Fiscales',
-          status: 'DOWN',
-          dependencies: ['DGFIP']
+          dependencies: [2]
         }
       ]
     }
