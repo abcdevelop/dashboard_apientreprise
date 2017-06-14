@@ -1,10 +1,7 @@
 <template>
   <div id="api-console" class="ui centered grid">
     <div class="eight wide column">
-      <div class="ui segment">
-        <h2 class="ui header">Endpoints</h2>
-        <endpoint v-for="endpoint in endpoints" :name="endpoint.name" :status="endpoint.status" :dependencies="endpoint.dependencies"></endpoint>
-      </div>
+      <endpoints-list :endpoints="endpoints"></endpoints-list>
     </div>
     <div class="four wide column">
       <data-providers-list :data-providers="dataProviders"></data-providers-list>
@@ -14,7 +11,7 @@
 
 <script>
 import DataProvidersList from '@/components/DataProvidersList'
-import Endpoint from '@/components/Endpoint'
+import EndpointsList from '@/components/EndpointsList'
 
 export default {
   name: 'api-console',
@@ -63,7 +60,7 @@ export default {
   },
   components: {
     'data-providers-list': DataProvidersList,
-    'endpoint': Endpoint
+    'endpoints-list': EndpointsList
   }
 }
 </script>
