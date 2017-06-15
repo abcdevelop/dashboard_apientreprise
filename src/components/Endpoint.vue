@@ -19,10 +19,20 @@
 <script>
 export default {
   name: 'endpoint',
+
   data () {
     return {}
   },
-  props: ['name', 'status', 'dependencies']
+
+  props: ['name', 'dependencies'],
+
+  computed: {
+    status: function () {
+      return this.dependencies.reduce(function (a, b) {
+        return a && (b.status === 'UP')
+      }, true) ? 'UP' : 'DOWN'
+    }
+  }
 }
 </script>
 

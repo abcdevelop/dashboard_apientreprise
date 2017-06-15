@@ -1,7 +1,7 @@
 <template>
   <div id="api-console" class="ui centered grid">
     <div class="eight wide column">
-      <endpoints-list :endpoints="endpoints"></endpoints-list>
+      <endpoints-list :endpoints="endpointsWithProvidersStatus"></endpoints-list>
     </div>
     <div class="four wide column">
       <data-providers-list :data-providers="dataProviders"></data-providers-list>
@@ -15,13 +15,14 @@ import EndpointsList from '@/components/EndpointsList'
 
 export default {
   name: 'api-console',
+
   data () {
     return {
       dataProviders: [
         {
           id: 1,
           name: 'INSEE',
-          status: 'UP'
+          status: 'DOWN'
         },
         {
           id: 2,
@@ -31,7 +32,7 @@ export default {
         {
           id: 3,
           name: 'Infogreffe',
-          status: 'DOWN'
+          status: 'UP'
         },
         {
           id: 4,
@@ -58,6 +59,22 @@ export default {
       ]
     }
   },
+
+  computed: {
+    endpointsWithProvidersStatus: function () {
+      let me = this
+      return me.endpoints.map(function (endpoint) {
+        let dataProvidersIds = endpoint.dependencies
+
+        endpoint.dependencies = me.dataProviders.filter(function (dataProvider) {
+          return dataProvidersIds.includes(dataProvider.id)
+        })
+
+        return endpoint
+      })
+    }
+  },
+
   components: {
     'data-providers-list': DataProvidersList,
     'endpoints-list': EndpointsList
