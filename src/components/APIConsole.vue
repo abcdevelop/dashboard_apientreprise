@@ -1,7 +1,7 @@
 <template>
   <div id="api-console" class="ui centered grid">
     <div class="eight wide column">
-      <endpoints-list :endpoints="endpointsWithProvidersStatus"></endpoints-list>
+      <endpoints-list :endpoints="endpointsWithDataProviders"></endpoints-list>
     </div>
     <div class="four wide column">
       <data-providers-list :data-providers="dataProviders"></data-providers-list>
@@ -44,33 +44,36 @@ export default {
         {
           id: 1,
           name: 'Etablissements',
-          dependencies: [1]
+          dataProvidersIds: [1]
         },
         {
           id: 2,
           name: 'Exercices',
-          dependencies: [1, 3]
+          dataProvidersIds: [1, 3]
         },
         {
           id: 3,
           name: 'Attestations Fiscales',
-          dependencies: [2]
+          dataProvidersIds: [2]
         }
       ]
     }
   },
 
   computed: {
-    endpointsWithProvidersStatus: function () {
+    // replace data providers ids by the data providers details
+    endpointsWithDataProviders: function () {
       let me = this
-      return me.endpoints.map(function (endpoint) {
-        let dataProvidersIds = endpoint.dependencies
 
-        endpoint.dependencies = me.dataProviders.filter(function (dataProvider) {
-          return dataProvidersIds.includes(dataProvider.id)
+      return me.endpoints.map(function (endpoint) {
+        let detailedEndpoint = Object.assign({}, endpoint)
+
+        detailedEndpoint.dataProviders = me.dataProviders.filter(function (dataProvider) {
+          return endpoint.dataProvidersIds.includes(dataProvider.id)
         })
 
-        return endpoint
+        delete detailedEndpoint.dataProvidersIds
+        return detailedEndpoint
       })
     }
   },

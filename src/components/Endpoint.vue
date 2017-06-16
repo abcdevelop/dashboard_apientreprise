@@ -8,8 +8,8 @@
         {{ status }}
       </div>
       <div class="content">
-        <div v-for="dependency in dependencies" class="ui green label">
-          {{ dependency }}
+        <div v-for="dataProvider in dataProviders" class="ui green label">
+          {{ dataProvider }}
         </div>
       </div>
     </div>
@@ -24,11 +24,13 @@ export default {
     return {}
   },
 
-  props: ['name', 'dependencies'],
+  props: ['name', 'dataProviders'],
 
   computed: {
+    // currently the endpoint status is UP only if all its data providers' status are UP
+    // TODO add rules for endpoints composed with multiple data providers
     status: function () {
-      return this.dependencies.reduce(function (a, b) {
+      return this.dataProviders.reduce(function (a, b) {
         return a && (b.status === 'UP')
       }, true) ? 'UP' : 'DOWN'
     }
